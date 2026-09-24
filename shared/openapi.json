@@ -1,0 +1,1656 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AKIM AI — Аким на 5 часов",
+    "description": "Учебная симуляция на синтетических данных. Детерминированные расчёты; AI объясняет готовые факты.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/districts": {
+      "get": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Districts",
+        "operationId": "districts_api_districts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/District"
+                  },
+                  "type": "array",
+                  "title": "Response Districts Api Districts Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/measures": {
+      "get": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Measures",
+        "operationId": "measures_api_measures_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Measure"
+                  },
+                  "type": "array",
+                  "title": "Response Measures Api Measures Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bootstrap": {
+      "get": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Bootstrap",
+        "operationId": "bootstrap_api_bootstrap_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulate": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Preview",
+        "operationId": "preview_api_simulate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Simulation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scenario/finalize": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Finalize",
+        "operationId": "finalize_api_scenario_finalize_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Simulation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommend": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Recommend One",
+        "operationId": "recommend_one_api_recommend_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recommendation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/analyze": {
+      "post": {
+        "tags": [
+          "AI integration"
+        ],
+        "summary": "Analyze",
+        "operationId": "analyze_api_ai_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AnalyzeRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ScenarioAnalyzeRequest"
+                  }
+                ],
+                "title": "Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Analysis"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StructuredAnalysis"
+                    }
+                  ],
+                  "title": "Response Analyze Api Ai Analyze Post"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/explain": {
+      "post": {
+        "tags": [
+          "AI integration"
+        ],
+        "summary": "Explain",
+        "operationId": "explain_api_explain_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExplainRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Analysis"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/compare": {
+      "post": {
+        "tags": [
+          "AI integration"
+        ],
+        "summary": "Compare",
+        "operationId": "compare_api_ai_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompareResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/report/executive-brief": {
+      "post": {
+        "tags": [
+          "AI integration"
+        ],
+        "summary": "Report",
+        "operationId": "report_api_report_executive_brief_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExplainRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/advice": {
+      "post": {
+        "tags": [
+          "AI integration"
+        ],
+        "summary": "Advice",
+        "operationId": "advice_api_ai_advice_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExplainRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdviceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AdviceResponse": {
+        "properties": {
+          "priority": {
+            "type": "string",
+            "title": "Priority"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "suggestions": {
+            "items": {
+              "$ref": "#/components/schemas/AdviceSuggestionResponse"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Suggestions"
+          },
+          "validation_mode": {
+            "type": "string",
+            "const": "individual_additions",
+            "title": "Validation Mode",
+            "default": "individual_additions"
+          },
+          "base_scenario_id": {
+            "type": "string",
+            "title": "Base Scenario Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "priority",
+          "reason",
+          "suggestions",
+          "base_scenario_id"
+        ],
+        "title": "AdviceResponse",
+        "description": "Keep the AI participant's snake_case response, with explicit validation context."
+      },
+      "AdviceSuggestionResponse": {
+        "properties": {
+          "measure_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Measure Id"
+          },
+          "district_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "esil",
+                  "almaty",
+                  "saryarka",
+                  "baikonur",
+                  "nura"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "District Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "measure_id",
+          "district_id"
+        ],
+        "title": "AdviceSuggestionResponse"
+      },
+      "Analysis": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "const": "ai",
+            "title": "Source",
+            "default": "ai"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "strengths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Strengths"
+          },
+          "risks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Risks"
+          },
+          "tradeoffs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tradeoffs"
+          },
+          "recommendations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Recommendations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "summary",
+          "strengths",
+          "risks",
+          "tradeoffs",
+          "recommendations"
+        ],
+        "title": "Analysis"
+      },
+      "AnalyzeRequest": {
+        "properties": {
+          "simulation": {
+            "$ref": "#/components/schemas/SimulationInput"
+          },
+          "question": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "simulation"
+        ],
+        "title": "AnalyzeRequest"
+      },
+      "Budget": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "spent": {
+            "type": "integer",
+            "title": "Spent"
+          },
+          "remaining": {
+            "type": "integer",
+            "title": "Remaining"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total",
+          "spent",
+          "remaining"
+        ],
+        "title": "Budget"
+      },
+      "CompareRequest": {
+        "properties": {
+          "originalDecisions": {
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Originaldecisions"
+          },
+          "alternativeDecisions": {
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Alternativedecisions"
+          },
+          "question": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "originalDecisions",
+          "alternativeDecisions"
+        ],
+        "title": "CompareRequest"
+      },
+      "CompareResponse": {
+        "properties": {
+          "originalScenarioId": {
+            "type": "string",
+            "title": "Originalscenarioid"
+          },
+          "alternativeScenarioId": {
+            "type": "string",
+            "title": "Alternativescenarioid"
+          },
+          "modelVersion": {
+            "type": "string",
+            "title": "Modelversion"
+          },
+          "dataChecksum": {
+            "type": "string",
+            "title": "Datachecksum"
+          },
+          "analysis": {
+            "$ref": "#/components/schemas/StructuredAnalysis"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "originalScenarioId",
+          "alternativeScenarioId",
+          "modelVersion",
+          "dataChecksum",
+          "analysis"
+        ],
+        "title": "CompareResponse"
+      },
+      "Contribution": {
+        "properties": {
+          "measureId": {
+            "type": "string",
+            "title": "Measureid"
+          },
+          "districtId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "esil",
+                  "almaty",
+                  "saryarka",
+                  "baikonur",
+                  "nura"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Districtid"
+          },
+          "scoreImpact": {
+            "type": "number",
+            "title": "Scoreimpact"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "measureId",
+          "scoreImpact"
+        ],
+        "title": "Contribution"
+      },
+      "CriticalIndicator": {
+        "properties": {
+          "districtId": {
+            "type": "string",
+            "enum": [
+              "esil",
+              "almaty",
+              "saryarka",
+              "baikonur",
+              "nura"
+            ],
+            "title": "Districtid"
+          },
+          "indicatorId": {
+            "type": "string",
+            "enum": [
+              "T1",
+              "T2",
+              "E1",
+              "E2",
+              "S1",
+              "S2",
+              "B1",
+              "B2",
+              "C1",
+              "C2"
+            ],
+            "title": "Indicatorid"
+          },
+          "before": {
+            "type": "number",
+            "title": "Before"
+          },
+          "after": {
+            "type": "number",
+            "title": "After"
+          },
+          "resolved": {
+            "type": "boolean",
+            "title": "Resolved"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "districtId",
+          "indicatorId",
+          "before",
+          "after",
+          "resolved"
+        ],
+        "title": "CriticalIndicator"
+      },
+      "Decision": {
+        "properties": {
+          "measureId": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Measureid"
+          },
+          "districtId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Districtid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "measureId"
+        ],
+        "title": "Decision"
+      },
+      "District": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "esil",
+              "almaty",
+              "saryarka",
+              "baikonur",
+              "nura"
+            ],
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "populationShare": {
+            "type": "number",
+            "title": "Populationshare"
+          },
+          "profile": {
+            "type": "string",
+            "title": "Profile"
+          },
+          "indicators": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "propertyNames": {
+              "enum": [
+                "T1",
+                "T2",
+                "E1",
+                "E2",
+                "S1",
+                "S2",
+                "B1",
+                "B2",
+                "C1",
+                "C2"
+              ]
+            },
+            "type": "object",
+            "title": "Indicators"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "populationShare",
+          "profile",
+          "indicators",
+          "score"
+        ],
+        "title": "District"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/Issue"
+            },
+            "type": "array",
+            "title": "Errors"
+          },
+          "score": {
+            "type": "null",
+            "title": "Score"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "message",
+          "code"
+        ],
+        "title": "ErrorResponse"
+      },
+      "ExplainRequest": {
+        "properties": {
+          "decisions": {
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Decisions"
+          },
+          "question": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decisions"
+        ],
+        "title": "ExplainRequest"
+      },
+      "FindingResponse": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text",
+          "evidence"
+        ],
+        "title": "FindingResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Issue": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "measureIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Measureids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "Issue"
+      },
+      "Measure": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "transport",
+              "ecology",
+              "social",
+              "safety",
+              "services"
+            ],
+            "title": "Category"
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "city",
+              "district"
+            ],
+            "title": "Scope"
+          },
+          "cost": {
+            "type": "integer",
+            "title": "Cost"
+          },
+          "lag": {
+            "type": "integer",
+            "title": "Lag"
+          },
+          "effects": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "propertyNames": {
+              "enum": [
+                "T1",
+                "T2",
+                "E1",
+                "E2",
+                "S1",
+                "S2",
+                "B1",
+                "B2",
+                "C1",
+                "C2"
+              ]
+            },
+            "type": "object",
+            "title": "Effects"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "category",
+          "scope",
+          "cost",
+          "lag",
+          "effects",
+          "description",
+          "notes"
+        ],
+        "title": "Measure"
+      },
+      "Recommendation": {
+        "properties": {
+          "found": {
+            "type": "boolean",
+            "title": "Found"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "decisions": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/Decision"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decisions"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Simulation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "candidatesChecked": {
+            "type": "integer",
+            "title": "Candidateschecked"
+          },
+          "validCandidates": {
+            "type": "integer",
+            "title": "Validcandidates"
+          },
+          "costDelta": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Costdelta"
+          },
+          "scoreDelta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scoredelta"
+          },
+          "weakestScoreDelta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weakestscoredelta"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "found",
+          "explanation",
+          "candidatesChecked",
+          "validCandidates"
+        ],
+        "title": "Recommendation"
+      },
+      "ScenarioAnalyzeRequest": {
+        "properties": {
+          "scenario": {
+            "$ref": "#/components/schemas/ScenarioFactsInput"
+          },
+          "question": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario"
+        ],
+        "title": "ScenarioAnalyzeRequest"
+      },
+      "ScenarioFactsInput": {
+        "properties": {
+          "decisions": {
+            "items": {
+              "$ref": "#/components/schemas/SummaryDecisionInput"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Decisions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decisions"
+        ],
+        "title": "ScenarioFactsInput"
+      },
+      "ScenarioRequest": {
+        "properties": {
+          "decisions": {
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Decisions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decisions"
+        ],
+        "title": "ScenarioRequest"
+      },
+      "Simulation": {
+        "properties": {
+          "modelVersion": {
+            "type": "string",
+            "title": "Modelversion"
+          },
+          "dataChecksum": {
+            "type": "string",
+            "title": "Datachecksum"
+          },
+          "scenarioId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenarioid"
+          },
+          "source": {
+            "type": "string",
+            "const": "backend",
+            "title": "Source",
+            "default": "backend"
+          },
+          "decisions": {
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "type": "array",
+            "title": "Decisions"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/Validation"
+          },
+          "budget": {
+            "$ref": "#/components/schemas/Budget"
+          },
+          "before": {
+            "$ref": "#/components/schemas/Snapshot"
+          },
+          "after": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Snapshot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "scoreDelta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scoredelta"
+          },
+          "synergies": {
+            "items": {
+              "$ref": "#/components/schemas/Synergy"
+            },
+            "type": "array",
+            "title": "Synergies"
+          },
+          "contributions": {
+            "items": {
+              "$ref": "#/components/schemas/Contribution"
+            },
+            "type": "array",
+            "title": "Contributions"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          },
+          "finalized": {
+            "type": "boolean",
+            "title": "Finalized",
+            "default": false
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "criticalIndicators": {
+            "items": {
+              "$ref": "#/components/schemas/CriticalIndicator"
+            },
+            "type": "array",
+            "title": "Criticalindicators"
+          },
+          "contributionMethod": {
+            "type": "string",
+            "const": "shapley",
+            "title": "Contributionmethod",
+            "default": "shapley"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "modelVersion",
+          "dataChecksum",
+          "decisions",
+          "validation",
+          "budget",
+          "before",
+          "after",
+          "scoreDelta",
+          "synergies",
+          "contributions",
+          "notice"
+        ],
+        "title": "Simulation"
+      },
+      "SimulationInput": {
+        "properties": {
+          "decisions": {
+            "items": {
+              "$ref": "#/components/schemas/Decision"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Decisions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decisions"
+        ],
+        "title": "SimulationInput"
+      },
+      "Snapshot": {
+        "properties": {
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "cityAverage": {
+            "type": "number",
+            "title": "Cityaverage"
+          },
+          "weakestDistrictId": {
+            "type": "string",
+            "enum": [
+              "esil",
+              "almaty",
+              "saryarka",
+              "baikonur",
+              "nura"
+            ],
+            "title": "Weakestdistrictid"
+          },
+          "criticalCount": {
+            "type": "integer",
+            "title": "Criticalcount"
+          },
+          "districts": {
+            "items": {
+              "$ref": "#/components/schemas/District"
+            },
+            "type": "array",
+            "title": "Districts"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "score",
+          "cityAverage",
+          "weakestDistrictId",
+          "criticalCount",
+          "districts"
+        ],
+        "title": "Snapshot"
+      },
+      "StructuredAnalysis": {
+        "properties": {
+          "strengths": {
+            "items": {
+              "$ref": "#/components/schemas/FindingResponse"
+            },
+            "type": "array",
+            "title": "Strengths"
+          },
+          "risks": {
+            "items": {
+              "$ref": "#/components/schemas/FindingResponse"
+            },
+            "type": "array",
+            "title": "Risks"
+          },
+          "tradeoffs": {
+            "items": {
+              "$ref": "#/components/schemas/FindingResponse"
+            },
+            "type": "array",
+            "title": "Tradeoffs"
+          },
+          "recommendations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Recommendations"
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "strengths",
+          "risks",
+          "tradeoffs",
+          "recommendations",
+          "answer"
+        ],
+        "title": "StructuredAnalysis"
+      },
+      "SummaryDecisionInput": {
+        "properties": {
+          "measureId": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Measureid"
+          },
+          "districtId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Districtid"
+          }
+        },
+        "type": "object",
+        "required": [
+          "measureId"
+        ],
+        "title": "SummaryDecisionInput"
+      },
+      "Synergy": {
+        "properties": {
+          "measureIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Measureids"
+          },
+          "districtId": {
+            "type": "string",
+            "enum": [
+              "esil",
+              "almaty",
+              "saryarka",
+              "baikonur",
+              "nura"
+            ],
+            "title": "Districtid"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "measureIds",
+          "districtId",
+          "description"
+        ],
+        "title": "Synergy"
+      },
+      "Validation": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "valid",
+              "invalid"
+            ],
+            "title": "Status"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/Issue"
+            },
+            "type": "array",
+            "title": "Errors"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "Validation"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

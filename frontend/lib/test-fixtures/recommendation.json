@@ -1,0 +1,330 @@
+{
+  "found": true,
+  "explanation": "Лучший найденный вариант с одной заменой. Проверены бюджет, направления и несовместимости. Это не поиск глобального оптимума.",
+  "decisions": [
+    {
+      "measureId": "M10",
+      "districtId": "nura"
+    },
+    {
+      "measureId": "M12"
+    },
+    {
+      "measureId": "M3",
+      "districtId": "nura"
+    },
+    {
+      "measureId": "M7",
+      "districtId": "nura"
+    },
+    {
+      "measureId": "M8",
+      "districtId": "nura"
+    }
+  ],
+  "result": {
+    "modelVersion": "astana-2026.1",
+    "dataChecksum": "c05f03c512f0410fcb028ea367fd73b0c494e703ffbf9c53e095f5cb4c86bd51",
+    "scenarioId": "99cd009ce1a01bb25fd4020b7328a2143e84cf1282588649363b6aab8bd1c8fd",
+    "source": "backend",
+    "decisions": [
+      {
+        "measureId": "M10",
+        "districtId": "nura"
+      },
+      {
+        "measureId": "M12"
+      },
+      {
+        "measureId": "M3",
+        "districtId": "nura"
+      },
+      {
+        "measureId": "M7",
+        "districtId": "nura"
+      },
+      {
+        "measureId": "M8",
+        "districtId": "nura"
+      }
+    ],
+    "validation": {
+      "status": "valid",
+      "errors": []
+    },
+    "budget": {
+      "total": 100,
+      "spent": 100,
+      "remaining": 0
+    },
+    "before": {
+      "score": 52.55768,
+      "cityAverage": 56.8624,
+      "weakestDistrictId": "nura",
+      "criticalCount": 2,
+      "districts": [
+        {
+          "id": "esil",
+          "name": "Есиль",
+          "populationShare": 0.27,
+          "profile": "Пробки на мостах и переполненные школы.",
+          "indicators": {
+            "T1": 45.0,
+            "T2": 62.0,
+            "E1": 68.0,
+            "E2": 72.0,
+            "S1": 48.0,
+            "S2": 55.0,
+            "B1": 78.0,
+            "B2": 60.0,
+            "C1": 75.0,
+            "C2": 70.0
+          },
+          "score": 62.99
+        },
+        {
+          "id": "almaty",
+          "name": "Алматы",
+          "populationShare": 0.24,
+          "profile": "Износ ЖКХ и пробки.",
+          "indicators": {
+            "T1": 40.0,
+            "T2": 75.0,
+            "E1": 50.0,
+            "E2": 55.0,
+            "S1": 60.0,
+            "S2": 65.0,
+            "B1": 62.0,
+            "B2": 52.0,
+            "C1": 50.0,
+            "C2": 60.0
+          },
+          "score": 57.06
+        },
+        {
+          "id": "saryarka",
+          "name": "Сарыарка",
+          "populationShare": 0.2,
+          "profile": "Смог от частного сектора и слабое озеленение.",
+          "indicators": {
+            "T1": 50.0,
+            "T2": 70.0,
+            "E1": 42.0,
+            "E2": 40.0,
+            "S1": 62.0,
+            "S2": 68.0,
+            "B1": 58.0,
+            "B2": 55.0,
+            "C1": 45.0,
+            "C2": 55.0
+          },
+          "score": 54.65
+        },
+        {
+          "id": "baikonur",
+          "name": "Байконур",
+          "populationShare": 0.13,
+          "profile": "Умеренные показатели без ярких перекосов.",
+          "indicators": {
+            "T1": 52.0,
+            "T2": 68.0,
+            "E1": 55.0,
+            "E2": 50.0,
+            "S1": 58.0,
+            "S2": 60.0,
+            "B1": 52.0,
+            "B2": 58.0,
+            "C1": 55.0,
+            "C2": 58.0
+          },
+          "score": 56.63
+        },
+        {
+          "id": "nura",
+          "name": "Нура",
+          "populationShare": 0.16,
+          "profile": "Низкая обеспеченность социальной инфраструктурой и транспортом.",
+          "indicators": {
+            "T1": 55.0,
+            "T2": 40.0,
+            "E1": 45.0,
+            "E2": 65.0,
+            "S1": 38.0,
+            "S2": 35.0,
+            "B1": 55.0,
+            "B2": 50.0,
+            "C1": 60.0,
+            "C2": 50.0
+          },
+          "score": 49.18
+        }
+      ]
+    },
+    "after": {
+      "score": 57.20556,
+      "cityAverage": 58.1583,
+      "weakestDistrictId": "nura",
+      "criticalCount": 0,
+      "districts": [
+        {
+          "id": "esil",
+          "name": "Есиль",
+          "populationShare": 0.27,
+          "profile": "Пробки на мостах и переполненные школы.",
+          "indicators": {
+            "T1": 45.0,
+            "T2": 62.0,
+            "E1": 68.0,
+            "E2": 72.0,
+            "S1": 48.0,
+            "S2": 55.0,
+            "B1": 78.0,
+            "B2": 60.0,
+            "C1": 75.0,
+            "C2": 74.375
+          },
+          "score": 63.4275
+        },
+        {
+          "id": "almaty",
+          "name": "Алматы",
+          "populationShare": 0.24,
+          "profile": "Износ ЖКХ и пробки.",
+          "indicators": {
+            "T1": 40.0,
+            "T2": 75.0,
+            "E1": 50.0,
+            "E2": 55.0,
+            "S1": 60.0,
+            "S2": 65.0,
+            "B1": 62.0,
+            "B2": 52.0,
+            "C1": 50.0,
+            "C2": 64.375
+          },
+          "score": 57.4975
+        },
+        {
+          "id": "saryarka",
+          "name": "Сарыарка",
+          "populationShare": 0.2,
+          "profile": "Смог от частного сектора и слабое озеленение.",
+          "indicators": {
+            "T1": 50.0,
+            "T2": 70.0,
+            "E1": 42.0,
+            "E2": 40.0,
+            "S1": 62.0,
+            "S2": 68.0,
+            "B1": 58.0,
+            "B2": 55.0,
+            "C1": 45.0,
+            "C2": 59.375
+          },
+          "score": 55.0875
+        },
+        {
+          "id": "baikonur",
+          "name": "Байконур",
+          "populationShare": 0.13,
+          "profile": "Умеренные показатели без ярких перекосов.",
+          "indicators": {
+            "T1": 52.0,
+            "T2": 68.0,
+            "E1": 55.0,
+            "E2": 50.0,
+            "S1": 58.0,
+            "S2": 60.0,
+            "B1": 52.0,
+            "B2": 58.0,
+            "C1": 55.0,
+            "C2": 62.375
+          },
+          "score": 57.0675
+        },
+        {
+          "id": "nura",
+          "name": "Нура",
+          "populationShare": 0.16,
+          "profile": "Низкая обеспеченность социальной инфраструктурой и транспортом.",
+          "indicators": {
+            "T1": 63.0,
+            "T2": 50.0,
+            "E1": 45.0,
+            "E2": 67.0,
+            "S1": 48.0,
+            "S2": 43.75,
+            "B1": 67.5,
+            "B2": 51.75,
+            "C1": 60.0,
+            "C2": 54.375
+          },
+          "score": 54.9825
+        }
+      ]
+    },
+    "scoreDelta": 4.64788,
+    "synergies": [
+      {
+        "measureIds": [
+          "M10",
+          "M12"
+        ],
+        "districtId": "nura",
+        "description": "M10 + M12: B1 +2"
+      }
+    ],
+    "contributions": [
+      {
+        "measureId": "M10",
+        "districtId": "nura",
+        "scoreImpact": 0.49131
+      },
+      {
+        "measureId": "M12",
+        "scoreImpact": 0.47458
+      },
+      {
+        "measureId": "M3",
+        "districtId": "nura",
+        "scoreImpact": 0.83224
+      },
+      {
+        "measureId": "M7",
+        "districtId": "nura",
+        "scoreImpact": 1.4532
+      },
+      {
+        "measureId": "M8",
+        "districtId": "nura",
+        "scoreImpact": 1.39655
+      }
+    ],
+    "notice": "Учебная симуляция на синтетических данных. Итог допустимого сценария.",
+    "finalized": true,
+    "score": 57.20556,
+    "criticalIndicators": [
+      {
+        "districtId": "nura",
+        "indicatorId": "S1",
+        "before": 38.0,
+        "after": 48.0,
+        "resolved": true
+      },
+      {
+        "districtId": "nura",
+        "indicatorId": "S2",
+        "before": 35.0,
+        "after": 43.75,
+        "resolved": true
+      }
+    ],
+    "contributionMethod": "shapley"
+  },
+  "candidatesChecked": 265,
+  "validCandidates": 117,
+  "costDelta": 5,
+  "scoreDelta": 0.66249,
+  "weakestScoreDelta": 2.02
+}
+

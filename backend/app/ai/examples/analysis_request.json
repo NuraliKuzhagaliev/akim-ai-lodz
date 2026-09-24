@@ -1,0 +1,99 @@
+{
+  "scenario": {
+    "score_before": 52.56,
+    "score_after": 56.51,
+    "score_delta": 3.95,
+    "budget": {
+      "initial": 100,
+      "spent": 95,
+      "remaining": 5
+    },
+    "decisions": [
+      {
+        "measure_id": "M7",
+        "name": "Школа + детсад",
+        "category": "social",
+        "scope": "district",
+        "cost": 24,
+        "district_id": "nura",
+        "district_name": "Нура"
+      },
+      {
+        "measure_id": "M8",
+        "name": "Центр семейного здоровья / поликлиника",
+        "category": "social",
+        "scope": "district",
+        "cost": 20,
+        "district_id": "nura",
+        "district_name": "Нура"
+      },
+      {
+        "measure_id": "M10",
+        "name": "Освещение и камеры Safe City",
+        "category": "safety",
+        "scope": "district",
+        "cost": 12,
+        "district_id": "nura",
+        "district_name": "Нура"
+      },
+      {
+        "measure_id": "M12",
+        "name": "Единая цифровая платформа обращений",
+        "category": "services",
+        "scope": "city",
+        "cost": 14
+      },
+      {
+        "measure_id": "M5",
+        "name": "Перевод частного сектора на чистое топливо",
+        "category": "environment",
+        "scope": "district",
+        "cost": 25,
+        "district_id": "saryarka",
+        "district_name": "Сарыарка"
+      }
+    ],
+    "districts": [
+      {
+        "district_id": "esil",
+        "district_name": "Есиль",
+        "before_score": 62.99,
+        "after_score": 64.1
+      },
+      {
+        "district_id": "almaty",
+        "district_name": "Алматы",
+        "before_score": 57.06,
+        "after_score": 58
+      },
+      {
+        "district_id": "saryarka",
+        "district_name": "Сарыарка",
+        "before_score": 54.65,
+        "after_score": 57.4
+      },
+      {
+        "district_id": "baikonur",
+        "district_name": "Байконур",
+        "before_score": 56.63,
+        "after_score": 57.5
+      },
+      {
+        "district_id": "nura",
+        "district_name": "Нура",
+        "before_score": 49.18,
+        "after_score": 56.2,
+        "indicators_before": {
+          "S1": 38
+        },
+        "indicators_after": {
+          "S1": 48
+        }
+      }
+    ],
+    "synergies": [
+      "M10 + M12: B1 +2 в районе Нура."
+    ]
+  },
+  "question": "Какой главный результат сценария и что стоит улучшить в следующем цикле?"
+}

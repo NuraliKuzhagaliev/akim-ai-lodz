@@ -1,0 +1,12 @@
+// Keep the link attached until the browser has dispatched the download.
+export function downloadText(name: string, text: string, type = 'text/plain;charset=utf-8') {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = name;
+  link.hidden = true;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 30000);
+}

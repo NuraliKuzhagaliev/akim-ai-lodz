@@ -1,0 +1,246 @@
+{
+  "score_before": 52.55768,
+  "score_after": 56.54307,
+  "score_delta": 3.98539,
+  "budget": {
+    "initial": 100,
+    "spent": 95,
+    "remaining": 5
+  },
+  "decisions": [
+    {
+      "measure_id": "M10",
+      "district_id": "nura",
+      "district_name": "Нура",
+      "name": "Освещение и камеры (расширение Safe City)",
+      "category": "safety",
+      "scope": "district",
+      "cost": 12,
+      "contribution": 0.49131
+    },
+    {
+      "measure_id": "M12",
+      "district_id": null,
+      "district_name": null,
+      "name": "Единая цифровая платформа обращений",
+      "category": "services",
+      "scope": "city",
+      "cost": 14,
+      "contribution": 0.47458
+    },
+    {
+      "measure_id": "M5",
+      "district_id": "saryarka",
+      "district_name": "Сарыарка",
+      "name": "Перевод частного сектора на чистое топливо",
+      "category": "ecology",
+      "scope": "district",
+      "cost": 25,
+      "contribution": 0.16975
+    },
+    {
+      "measure_id": "M7",
+      "district_id": "nura",
+      "district_name": "Нура",
+      "name": "Школа + детсад (модульное строительство)",
+      "category": "social",
+      "scope": "district",
+      "cost": 24,
+      "contribution": 1.4532
+    },
+    {
+      "measure_id": "M8",
+      "district_id": "nura",
+      "district_name": "Нура",
+      "name": "Центр семейного здоровья / поликлиника",
+      "category": "social",
+      "scope": "district",
+      "cost": 20,
+      "contribution": 1.39655
+    }
+  ],
+  "districts": [
+    {
+      "district_id": "esil",
+      "district_name": "Есиль",
+      "before_score": 62.99,
+      "after_score": 63.4275,
+      "indicators_before": {
+        "T1": 45.0,
+        "T2": 62.0,
+        "E1": 68.0,
+        "E2": 72.0,
+        "S1": 48.0,
+        "S2": 55.0,
+        "B1": 78.0,
+        "B2": 60.0,
+        "C1": 75.0,
+        "C2": 70.0
+      },
+      "indicators_after": {
+        "T1": 45.0,
+        "T2": 62.0,
+        "E1": 68.0,
+        "E2": 72.0,
+        "S1": 48.0,
+        "S2": 55.0,
+        "B1": 78.0,
+        "B2": 60.0,
+        "C1": 75.0,
+        "C2": 74.375
+      }
+    },
+    {
+      "district_id": "almaty",
+      "district_name": "Алматы",
+      "before_score": 57.06,
+      "after_score": 57.4975,
+      "indicators_before": {
+        "T1": 40.0,
+        "T2": 75.0,
+        "E1": 50.0,
+        "E2": 55.0,
+        "S1": 60.0,
+        "S2": 65.0,
+        "B1": 62.0,
+        "B2": 52.0,
+        "C1": 50.0,
+        "C2": 60.0
+      },
+      "indicators_after": {
+        "T1": 40.0,
+        "T2": 75.0,
+        "E1": 50.0,
+        "E2": 55.0,
+        "S1": 60.0,
+        "S2": 65.0,
+        "B1": 62.0,
+        "B2": 52.0,
+        "C1": 50.0,
+        "C2": 64.375
+      }
+    },
+    {
+      "district_id": "saryarka",
+      "district_name": "Сарыарка",
+      "before_score": 54.65,
+      "after_score": 56.3,
+      "indicators_before": {
+        "T1": 50.0,
+        "T2": 70.0,
+        "E1": 42.0,
+        "E2": 40.0,
+        "S1": 62.0,
+        "S2": 68.0,
+        "B1": 58.0,
+        "B2": 55.0,
+        "C1": 45.0,
+        "C2": 55.0
+      },
+      "indicators_after": {
+        "T1": 50.0,
+        "T2": 70.0,
+        "E1": 42.0,
+        "E2": 48.75,
+        "S1": 62.0,
+        "S2": 68.0,
+        "B1": 58.0,
+        "B2": 55.0,
+        "C1": 47.5,
+        "C2": 59.375
+      }
+    },
+    {
+      "district_id": "baikonur",
+      "district_name": "Байконур",
+      "before_score": 56.63,
+      "after_score": 57.0675,
+      "indicators_before": {
+        "T1": 52.0,
+        "T2": 68.0,
+        "E1": 55.0,
+        "E2": 50.0,
+        "S1": 58.0,
+        "S2": 60.0,
+        "B1": 52.0,
+        "B2": 58.0,
+        "C1": 55.0,
+        "C2": 58.0
+      },
+      "indicators_after": {
+        "T1": 52.0,
+        "T2": 68.0,
+        "E1": 55.0,
+        "E2": 50.0,
+        "S1": 58.0,
+        "S2": 60.0,
+        "B1": 52.0,
+        "B2": 58.0,
+        "C1": 55.0,
+        "C2": 62.375
+      }
+    },
+    {
+      "district_id": "nura",
+      "district_name": "Нура",
+      "before_score": 49.18,
+      "after_score": 52.9625,
+      "indicators_before": {
+        "T1": 55.0,
+        "T2": 40.0,
+        "E1": 45.0,
+        "E2": 65.0,
+        "S1": 38.0,
+        "S2": 35.0,
+        "B1": 55.0,
+        "B2": 50.0,
+        "C1": 60.0,
+        "C2": 50.0
+      },
+      "indicators_after": {
+        "T1": 55.0,
+        "T2": 40.0,
+        "E1": 45.0,
+        "E2": 65.0,
+        "S1": 48.0,
+        "S2": 43.75,
+        "B1": 67.5,
+        "B2": 51.75,
+        "C1": 60.0,
+        "C2": 54.375
+      }
+    }
+  ],
+  "category_scores": [
+    {
+      "category": "transport",
+      "before_score": 55.645,
+      "after_score": 55.645
+    },
+    {
+      "category": "ecology",
+      "before_score": 55.5465,
+      "after_score": 56.509
+    },
+    {
+      "category": "social",
+      "before_score": 55.415,
+      "after_score": 56.915
+    },
+    {
+      "category": "safety",
+      "before_score": 59.16,
+      "after_score": 60.3
+    },
+    {
+      "category": "services",
+      "before_score": 58.92,
+      "after_score": 61.3575
+    }
+  ],
+  "critical_indicators_before": 2,
+  "critical_indicators_after": 0,
+  "synergies": [
+    "M10 + M12: B1 +2"
+  ]
+}
