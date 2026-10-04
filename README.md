@@ -1,5 +1,7 @@
 # AKIM AI — Mayor for Five Hours
 
+**[Open the web app ↗](https://akim-ai-lodz.vercel.app/)**
+
 **Five decisions. A budget of 100. The future of five Astana districts.**
 
 An educational AI city-management simulator built for HackAlem by **LODZ POLSKA**.
@@ -16,7 +18,7 @@ This is an **integrated repository**: frontend, backend, AI modules, reports, sh
 - The calculation engine, simulator UI, AI integration, plan comparison, and report exports are implemented.
 - CI covers the backend, frontend, and contract consistency. [The run for original commit 14cd4db](https://github.com/NuraliKuzhagaliev/akim-ai-lodz/actions/runs/35988619762) passed on September 24, 2026.
 - External AI requires your own API key. Tests using a controlled provider do not establish the quality or availability of a real model.
-- No public application URL is documented in the repository's configuration or documentation. The GitHub repository is available; hosting the application is a separate step.
+- The web application is hosted on Vercel: [akim-ai-lodz.vercel.app](https://akim-ai-lodz.vercel.app/).
 
 ## Features
 
@@ -233,7 +235,7 @@ Request and error formats are documented in [shared/api-contract.md](shared/api-
 
 ## Deployment for external access
 
-No ready-to-use public URL is provided. Quick start is sufficient for a demonstration on your own computer. For a public server:
+Open the hosted web application at [akim-ai-lodz.vercel.app](https://akim-ai-lodz.vercel.app/). Quick start is sufficient for a demonstration on your own computer. To deploy your own instance:
 
 1. Copy the project without `.venv`, `node_modules`, `.next`, or local secrets to a server with Python 3.12 and Node.js 22.20+.
 2. Install dependencies using the manual startup commands. Set backend `OPENAI_API_KEY`, `OPENAI_MODEL`, and `CORS_ORIGINS`, for example `CORS_ORIGINS=https://akim.example.org` without a trailing `/`.
@@ -243,7 +245,7 @@ No ready-to-use public URL is provided. Quick start is sufficient for a demonstr
 6. Restrict public access and paid AI request frequency at the proxy or gateway. The application has no authentication or rate limiting; CORS does not protect against direct requests.
 7. From an external browser, verify API health, the reference scenario, CORS, and AI. Both the website and API must use HTTPS.
 
-A domain, certificate, and hosting are not included. This README does not claim a verified public deployment.
+For your own deployment, configure hosting, a domain, and HTTPS separately.
 
 ## Verification: a demo for judges
 
