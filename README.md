@@ -1,107 +1,108 @@
-# AKIM AI — «Аким на 5 часов»
+# AKIM AI — Mayor for Five Hours
 
-**Пять решений. Бюджет 100. Будущее пяти районов Астаны.**
+**Five decisions. A budget of 100. The future of five Astana districts.**
 
-Учебный AI-симулятор городского управления для HackAlem. Команда **LODZ POLSKA**.
-Помогает участникам хакатона, аналитикам и городским управленцам сравнивать последствия решений при ограниченном бюджете: для транспорта, экологии, социальной инфраструктуры, безопасности и городских сервисов.
+An educational AI city-management simulator built for HackAlem by **LODZ POLSKA**.
+It helps hackathon participants, analysts, and city managers compare decisions under a limited budget across transport, the environment, social infrastructure, safety, and city services.
 
-> Все данные синтетические. Результат — оценка в учебной модели организаторов, а не прогноз реального развития города. Числа считает сервер; AI объясняет рассчитанные факты.
+> All data is synthetic. Results are estimates within the organizers' educational model, not forecasts of real city development. The server calculates the numbers; AI explains the calculated facts.
 
-Это **интегрированный репозиторий**: frontend, backend, AI-модули, отчёты, общий каталог и тесты находятся вместе. Для запуска достаточно клонировать этот репозиторий; объединять отдельные ветки команды не требуется.
+This is an **integrated repository**: frontend, backend, AI modules, reports, shared data, and tests are included. Clone this repository to get started; no manual merging of the team's branches is needed.
 
-[Изменения и проверки](docs/LOCAL-CHANGES.md) · [Соответствие заданию](docs/REQUIREMENTS.md) · [Контракт API](shared/api-contract.md) · [GitHub Actions](https://github.com/NuraliKuzhagaliev/akim-ai-lodz/actions/workflows/backend.yml)
+[Changes and verification](docs/LOCAL-CHANGES.md) · [Requirements coverage](docs/REQUIREMENTS.md) · [API contract](shared/api-contract.md) · [GitHub Actions](https://github.com/NuraliKuzhagaliev/akim-ai-lodz/actions/workflows/backend.yml)
 
-## Статус проекта
+## Project status
 
-- Реализованы расчётный движок, интерфейс симулятора, AI-интеграция, сравнение планов и экспорт отчётов.
-- В репозитории настроен CI для backend, frontend и согласованности контрактов. [Запуск на исходном коммите 14cd4db](https://github.com/NuraliKuzhagaliev/akim-ai-lodz/actions/runs/35988619762) завершился успешно 24 сентября 2026 года.
-- Внешний AI требует собственного API-ключа. Успешные тесты с контролируемым провайдером не подтверждают качество или доступность реальной модели.
-- Публичный URL приложения в конфигурации и документации репозитория не указан. GitHub-репозиторий доступен; публикация приложения на хостинге — отдельный шаг.
+- The calculation engine, simulator UI, AI integration, plan comparison, and report exports are implemented.
+- CI covers the backend, frontend, and contract consistency. [The run for original commit 14cd4db](https://github.com/NuraliKuzhagaliev/akim-ai-lodz/actions/runs/35988619762) passed on September 24, 2026.
+- External AI requires your own API key. Tests using a controlled provider do not establish the quality or availability of a real model.
+- No public application URL is documented in the repository's configuration or documentation. The GitHub repository is available; hosting the application is a separate step.
 
-## Что реализовано
+## Features
 
-- Каталог 14 мероприятий и пять районов; выбор района, поиск, фильтры, бюджет и пять слотов решений.
-- Предварительный расчёт и серверная проверка ограничений; финализация только допустимого плана.
-- Показатели до/после, Score города и районов, слабейший район, критические значения, синергии и вклады мер.
-- AI-разбор сильных сторон, рисков, компромиссов и рекомендаций с обоснованиями.
-- AI-советник для незавершённого плана. Каждое добавление проверяется сервером отдельно и повторно при применении.
-- Поиск лучшего допустимого улучшения **одной заменой**, показ выгод и потерь по районам, безопасное применение.
-- Сохранение до 12 планов в браузере, числовое сравнение двух планов и отдельное AI-объяснение различий.
-- Экспорт результата в JSON; краткий AI-отчёт с просмотром и скачиванием Markdown.
-- Адаптивный интерфейс, графики, схема районов, анимации и поддержка уменьшенного движения.
+- A catalog of 14 measures and five districts, with district selection, search, filters, a budget tracker, and five decision slots.
+- Preview calculations and server-side constraint validation; only valid plans can be finalized.
+- Before/after indicators, city and district scores, the weakest district, critical values, synergies, and measure contributions.
+- AI analysis of strengths, risks, trade-offs, and recommendations with supporting explanations.
+- An AI advisor for incomplete plans. Each suggested addition is validated separately by the server and checked again when applied.
+- The best valid improvement through **one replacement**, including district gains and losses and validated application.
+- Up to 12 plans saved in the browser, numerical comparison of two plans, and a separate AI explanation of their differences.
+- JSON result export and a concise AI report with Markdown preview and download.
+- Responsive layouts, charts, an illustrative district map, animations, and reduced-motion support.
 
-## Как работает решение
+## How it works
 
-1. Сервер загружает показатели, мероприятия и правила из `shared/`.
-2. Пользователь выбирает пять уникальных мероприятий, назначает районы локальным мерам и укладывается в бюджет 100.
-3. Backend проверяет ограничения, учитывает задержки и синергии, вычисляет показатели районов и города.
-4. Интерфейс показывает результат и распределение изменений между районами.
-5. Для AI-анализа сервер заново рассчитывает выбранные решения и передаёт модели проверенные факты. Клиентские числа не становятся источником расчёта.
-6. Пользователь сохраняет план, проверяет одну замену, сравнивает альтернативу и готовит отчёт для защиты.
+1. The server loads indicators, measures, and rules from `shared/`.
+2. The user selects five unique measures, assigns districts to local measures, and stays within the budget of 100.
+3. The backend validates constraints, accounts for delays and synergies, and calculates district and city indicators.
+4. The interface displays the result and the distribution of changes across districts.
+5. For AI analysis, the server recalculates the selected decisions and passes verified facts to the model. Client-supplied numbers are not used as the calculation source.
+6. The user saves the plan, evaluates one replacement, compares an alternative, and prepares a presentation report.
 
-При недоступности AI расчёты и работа с планом продолжаются; вместо выдуманного объяснения показывается ошибка.
+If AI is unavailable, calculations and plan management remain available, and the interface displays an error instead of inventing an explanation.
 
-## Технологии
+## Technology stack
 
-| Часть | Технологии |
+| Component | Technologies |
 | --- | --- |
 | Frontend | Next.js 16.3.6, React 19.3.0, TypeScript 6.0.3, Tailwind CSS 4.3.3 |
-| Интерфейс | Radix UI, Recharts, Lucide, Zod |
+| UI | Radix UI, Recharts, Lucide, Zod |
 | Backend | Python 3.12, FastAPI, Pydantic, Uvicorn, python-dotenv |
-| AI | OpenAI Python SDK, Responses API, структурированные ответы по Pydantic-схемам |
-| Данные | JSON-каталог, детерминированный Python-движок, localStorage |
-| Проверки | pytest, Hypothesis, Ruff, Vitest, ESLint, TypeScript |
-| Запуск | Python-скрипт, npm; Dockerfile для обеих частей, Docker Compose |
+| AI | OpenAI Python SDK, Responses API, structured responses using Pydantic schemas |
+| Data | JSON catalog, deterministic Python engine, localStorage |
+| Checks | pytest, Hypothesis, Ruff, Vitest, ESLint, TypeScript |
+| Startup | Python launcher, npm, Dockerfiles for both services, Docker Compose |
 
-Версии закреплены в `frontend/package-lock.json` и `backend/requirements*.txt`.
-Модель задаётся серверной переменной `OPENAI_MODEL`; значение из кода по умолчанию — `gpt-6-astra`. Нужна модель, доступная вашему API-проекту и поддерживающая структурированный ответ Responses API. Доступ и оплата внешнего API не поставляются вместе с проектом.
+Versions are pinned in `frontend/package-lock.json` and `backend/requirements*.txt`.
+The server-side `OPENAI_MODEL` variable selects the model; the code defaults to `gpt-6-astra`. Use a model available to your API project that supports structured Responses API output. External API access and billing are not included with this project.
 
-## Архитектура
+## Architecture
 
-Backend проверяет план и рассчитывает показатели независимо от AI. AI-модули получают повторно рассчитанные факты; отчёты объединяют эти факты с объяснением модели.
+The backend validates plans and calculates indicators independently of AI. AI modules receive recalculated facts; reports combine those facts with the model's explanation.
 
 ```mermaid
 flowchart TD
-    U["Браузер / Next.js"] --> V["FastAPI: валидация плана"]
-    D["shared: данные и правила"] --> E["Детерминированный движок"]
+    U["Browser / Next.js"] --> V["FastAPI: plan validation"]
+    D["shared: data and rules"] --> E["Deterministic engine"]
     V --> E
-    E --> R["Числовой результат"]
+    E --> R["Numerical result"]
     R --> U
-    R --> A["AI: объяснение фактов"]
+    R --> A["AI: explanation of facts"]
     A --> U
-    R --> B["Отчёт"]
+    R --> B["Report"]
     A --> B
 ```
 
-| Путь | Назначение |
+| Path | Purpose |
 | --- | --- |
-| `frontend/` | Страницы, компоненты, API-клиент, графики и тесты |
-| `backend/app/simulation/` | Каталог, правила, точные расчёты и поиск одной замены |
-| `backend/app/api/` | HTTP-маршруты и адаптеры доверенных AI-запросов |
-| `backend/app/ai/` | Промпты, схемы и OpenAI-провайдер |
-| `backend/app/report/` | Построение отчёта из фактов и AI-выводов |
-| `backend/tests/` | Проверки математики, API и интеграций |
-| `shared/` | Данные, контрольный пример, fixtures, контракт и OpenAPI |
-| `scripts/start.py`, `START.cmd` | Установка и запуск локальных сервисов |
-| `compose.yaml`, Dockerfile обеих частей | Совместный запуск в контейнерах |
-| `.github/workflows/backend.yml` | Интегрированные автоматические проверки |
+| `frontend/` | Pages, components, API client, charts, and tests |
+| `backend/app/simulation/` | Catalog, rules, exact calculations, and single-replacement search |
+| `backend/app/api/` | HTTP routes and adapters for trusted AI requests |
+| `backend/app/ai/` | Prompts, schemas, and the OpenAI provider |
+| `backend/app/report/` | Reports built from facts and AI conclusions |
+| `backend/tests/` | Calculation, API, and integration checks |
+| `shared/` | Data, reference scenario, fixtures, contract, and OpenAPI |
+| `scripts/start.py`, `START.cmd` | Installation and local service startup |
+| `compose.yaml` and both Dockerfiles | Combined container startup |
+| `.github/workflows/backend.yml` | Integrated automated checks |
 
-Базы данных и регистрации нет. Сценарии хранятся в конкретном браузере; `scenarioId` — идентификатор содержания плана, а не запись в серверной БД. Backend — единственный источник числовых результатов. [Контракт API](shared/api-contract.md).
+There is no database or registration. Scenarios are stored in the current browser; `scenarioId` identifies plan content, not a server-side database record. The backend is the authoritative source of numerical results. See the [API contract](shared/api-contract.md).
 
-## Установка и запуск
+## Installation and startup
 
-### Быстрый запуск на Windows
+### Quick start on Windows
 
-1. Клонируйте репозиторий и перейдите в его корень:
+1. Clone the repository and enter its root directory:
 
 ```powershell
 git clone https://github.com/NuraliKuzhagaliev/akim-ai-lodz.git
 cd akim-ai-lodz
 ```
 
-   Можно также скачать ZIP с GitHub и распаковать его в отдельную папку.
-2. Установите **Python 3.12** с Windows Launcher (`py`) и **Node.js 22.20+** с npm. Перезапустите терминал.
-3. Откройте PowerShell в корне проекта:
+   Alternatively, download the ZIP from GitHub and extract it into a separate folder.
+
+2. Install **Python 3.12** with the Windows Launcher (`py`) and **Node.js 22.20+** with npm. Restart your terminal.
+3. Open PowerShell in the project root:
 
 ```powershell
 py -3.12 --version
@@ -110,43 +111,43 @@ npm.cmd --version
 py -3.12 scripts/start.py
 ```
 
-Или дважды нажмите **START.cmd**. Первый запуск создаёт `.venv`, устанавливает закреплённые зависимости и копирует примеры локальных конфигураций, если они отсутствуют. Для установки нужен интернет. Существующие конфигурации и ключи не перезаписываются.
+Alternatively, double-click **START.cmd**. The first run creates `.venv`, installs pinned dependencies, and copies local configuration examples if they do not exist. Installation requires internet access. Existing configurations and keys are preserved.
 
-После сообщения о готовности Next.js откройте **http://127.0.0.1:3000**.
-Документация API: **http://127.0.0.1:8000/docs**; здоровье сервера: **http://127.0.0.1:8000/api/health**.
-Держите терминал открытым. **Ctrl+C** останавливает оба сервиса.
+Once Next.js reports that it is ready, open **http://127.0.0.1:3000**.
+API documentation: **http://127.0.0.1:8000/docs**; health endpoint: **http://127.0.0.1:8000/api/health**.
+Keep the terminal open. **Ctrl+C** stops both services.
 
-Скрипт включает `live`, AI-сравнение и рекомендации, согласует адрес API с CORS. Если порты заняты:
+The launcher enables `live` mode, AI comparison, and recommendations, and aligns the API URL with CORS. If the default ports are occupied:
 
 ```powershell
 py -3.12 scripts/start.py --api-port 8100 --web-port 3100
 ```
 
-Тогда сайт находится на `http://127.0.0.1:3100`. Production-сборка и запуск:
+The website will then be available at `http://127.0.0.1:3100`. To build and run in production mode:
 
 ```powershell
 py -3.12 scripts/start.py --production
 ```
 
-После изменения зависимостей используйте `--install`.
+Use `--install` after changing dependencies.
 
-### Настройка настоящего AI
+### Configure live AI
 
-После первого запуска откройте **backend/.env** текстовым редактором. До первого запуска его можно создать копированием `backend/.env.example`:
+After the first run, open **backend/.env** in a text editor. Before the first run, you can create it by copying `backend/.env.example`:
 
 ```dotenv
-OPENAI_API_KEY=ваш_серверный_ключ
-OPENAI_MODEL=модель_доступная_вашему_API_проекту
+OPENAI_API_KEY=your_server_side_key
+OPENAI_MODEL=a_model_available_to_your_api_project
 ```
 
-Перезапустите приложение. `GET /api/health` покажет `aiConfigured: true`, если провайдер создан. Это подтверждает загрузку конфигурации, но не успешную авторизацию во внешнем API: для её проверки выполните AI-разбор в интерфейсе.
+Restart the application. `GET /api/health` reports `aiConfigured: true` when the provider has been created. This confirms that configuration was loaded, not that external API authentication succeeded. Run an AI analysis in the interface to check actual access.
 
-**Ключ хранится только на backend.** Не помещайте его в `frontend/.env.local`, переменные `NEXT_PUBLIC_*`, архив для жюри или GitHub.
-Без ключа доступны симуляция, финализация, поиск замены, сохранение, JSON и числовое сравнение. AI-советы, AI-сравнение и AI-отчёт вернут понятную ошибку 503.
+**Store the key only on the backend.** Do not put it in `frontend/.env.local`, `NEXT_PUBLIC_*` variables, a submission archive, or GitHub.
+Without a key, simulation, finalization, replacement search, saving, JSON export, and numerical comparison remain available. AI advice, AI comparison, and AI reports return a clear 503 error.
 
-### Ручной запуск: два терминала
+### Manual startup: two terminals
 
-Windows, первый терминал из корня:
+On Windows, run the following in the first terminal from the repository root:
 
 ```powershell
 py -3.12 -m venv .venv
@@ -155,9 +156,9 @@ Copy-Item backend/.env.example backend/.env
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000
 ```
 
-Копируйте `backend/.env` только при его отсутствии, чтобы сохранить настроенный ключ.
+Copy `backend/.env` only if it does not exist, to preserve an already configured key.
 
-Второй терминал из корня:
+In the second terminal, starting from the repository root:
 
 ```powershell
 cd frontend
@@ -166,7 +167,7 @@ Copy-Item .env.example .env.local
 npm.cmd run dev
 ```
 
-Копирование `.env.local` также нужно один раз. Рабочие значения:
+Copy `.env.local` only once as well. Use these values:
 
 ```dotenv
 NEXT_PUBLIC_API_MODE=live
@@ -175,12 +176,12 @@ NEXT_PUBLIC_ENABLE_RECOMMENDATIONS=true
 NEXT_PUBLIC_ENABLE_AI_COMPARISON=true
 ```
 
-macOS/Linux: установите Python 3.12 и Node.js 22.20+, затем выполните `python3.12 scripts/start.py`.
-Для ручного варианта используйте `.venv/bin/python`, `cp` вместо `Copy-Item`, `npm` вместо `npm.cmd`.
+On macOS/Linux, install Python 3.12 and Node.js 22.20+, then run `python3.12 scripts/start.py`.
+For manual startup, use `.venv/bin/python`, `cp` instead of `Copy-Item`, and `npm` instead of `npm.cmd`.
 
 ### Docker Compose
 
-Нужен установленный и запущенный Docker с Compose v2. Из корня:
+Install and start Docker with Compose v2. From the repository root:
 
 ```powershell
 Copy-Item .env.example .env
@@ -189,85 +190,85 @@ docker compose ps
 docker compose logs --tail 100 backend frontend
 ```
 
-Для Docker AI-ключ и модель задаются в **корневом .env** до запуска. Compose не читает `backend/.env`.
-Сайт: `http://127.0.0.1:3000`; API: `http://127.0.0.1:8000`. Остановить: `docker compose down`.
+For Docker, set the AI key and model in the **root .env** before startup. Compose does not read `backend/.env`.
+Website: `http://127.0.0.1:3000`; API: `http://127.0.0.1:8000`. Stop the services with `docker compose down`.
 
-Адрес API во frontend должен быть доступен **браузеру**: `http://backend:8000` подходит для сети контейнеров, но не для браузера пользователя. После изменения `NEXT_PUBLIC_*` нужна пересборка.
-Dockerfile и Compose включены в репозиторий. CI проверяет Python/Node.js, но не запускает Docker Compose; работу контейнеров следует проверять отдельно. Описание исторических локальных проверок находится в [docs/LOCAL-CHANGES.md](docs/LOCAL-CHANGES.md).
+The frontend API URL must be reachable from the **browser**: `http://backend:8000` works inside the container network, but not in a user's browser. Rebuild after changing `NEXT_PUBLIC_*` values.
+Dockerfiles and Compose configuration are included. CI checks Python/Node.js but does not run Docker Compose; verify the containers separately. Historical local verification notes are in [docs/LOCAL-CHANGES.md](docs/LOCAL-CHANGES.md).
 
-## Переменные окружения
+## Environment variables
 
-| Переменная | Где используется | Назначение |
+| Variable | Used by | Purpose |
 | --- | --- | --- |
-| `OPENAI_API_KEY` | Backend | Серверный ключ; без него числовые расчёты продолжают работать |
-| `OPENAI_MODEL` | Backend | Модель структурированных ответов; значение по умолчанию в коде — `gpt-6-astra` |
-| `CORS_ORIGINS` | Backend | Разрешённые origins через запятую; стандартно localhost и 127.0.0.1 на порту 3000 |
-| `NEXT_PUBLIC_API_MODE` | Frontend | `live` для реального движка; `mock` для явно обозначенных fixtures |
-| `NEXT_PUBLIC_API_BASE_URL` | Frontend | Origin API без `/api`; пустая строка — запросы на тот же origin |
-| `NEXT_PUBLIC_ENABLE_RECOMMENDATIONS` | Frontend | Включение поиска одной замены; для полного сценария — `true` |
-| `NEXT_PUBLIC_ENABLE_AI_COMPARISON` | Frontend | Включение AI-сравнения; для полного сценария — `true` |
+| `OPENAI_API_KEY` | Backend | Server-side key; numerical calculations work without it |
+| `OPENAI_MODEL` | Backend | Structured-output model; the code defaults to `gpt-6-astra` |
+| `CORS_ORIGINS` | Backend | Comma-separated allowed origins; defaults to localhost and 127.0.0.1 on port 3000 |
+| `NEXT_PUBLIC_API_MODE` | Frontend | `live` for the real engine; `mock` for explicitly labeled fixtures |
+| `NEXT_PUBLIC_API_BASE_URL` | Frontend | API origin without `/api`; an empty string uses the same origin |
+| `NEXT_PUBLIC_ENABLE_RECOMMENDATIONS` | Frontend | Enables single-replacement search; set to `true` for the full workflow |
+| `NEXT_PUBLIC_ENABLE_AI_COMPARISON` | Frontend | Enables AI comparison; set to `true` for the full workflow |
 
-Нативный запуск читает `backend/.env` и `frontend/.env.local`; Docker Compose получает значения из корневого `.env`. Переменные окружения процесса имеют приоритет над локальным backend-файлом. Launcher задаёт `live`, адреса, CORS и оба frontend-флага для выбранных портов.
+Native startup reads `backend/.env` and `frontend/.env.local`; Docker Compose takes values from the root `.env`. Process environment variables override the local backend file. The launcher sets `live` mode, addresses, CORS, and both frontend flags for the selected ports.
 
-Название модели в примере — настройка проекта, а не гарантия доступа к ней. Выберите модель, реально доступную вашему API-проекту. Все `NEXT_PUBLIC_*` попадают в клиентскую конфигурацию: секреты туда помещать нельзя.
+A model name in configuration does not guarantee access. Choose a model actually available to your API project. All `NEXT_PUBLIC_*` values become part of the client configuration and must not contain secrets.
 
-## Основные маршруты API
+## Main API routes
 
-| Метод | Путь | Назначение |
+| Method | Path | Purpose |
 | --- | --- | --- |
-| GET | `/api/health` | Статус приложения, версия/контрольная сумма данных и конфигурация AI |
-| GET | `/api/bootstrap` | Каталог, начальные показатели и правила |
-| GET | `/api/districts`, `/api/measures` | Районы и мероприятия |
-| POST | `/api/simulate` | Предварительный расчёт 0–5 решений |
-| POST | `/api/scenario/finalize` | Финализация полного плана |
-| POST | `/api/recommend` | Поиск лучшей допустимой замены одного решения |
-| POST | `/api/ai/analyze`, `/api/explain` | AI-анализ повторно рассчитанного плана |
-| POST | `/api/ai/advice` | Совет по отдельному добавлению в неполный план |
-| POST | `/api/ai/compare` | AI-сравнение двух повторно рассчитанных планов |
-| POST | `/api/report/executive-brief` | Структурированный отчёт с Markdown |
+| GET | `/api/health` | Application status, data version/checksum, and AI configuration |
+| GET | `/api/bootstrap` | Catalog, baseline indicators, and rules |
+| GET | `/api/districts`, `/api/measures` | Districts and measures |
+| POST | `/api/simulate` | Preview for 0–5 decisions |
+| POST | `/api/scenario/finalize` | Finalize a complete plan |
+| POST | `/api/recommend` | Find the best valid single-decision replacement |
+| POST | `/api/ai/analyze`, `/api/explain` | AI analysis of a recalculated plan |
+| POST | `/api/ai/advice` | Advice on individual additions to an incomplete plan |
+| POST | `/api/ai/compare` | AI comparison of two recalculated plans |
+| POST | `/api/report/executive-brief` | Structured report with Markdown |
 
-Форматы запросов и ошибок приведены в [shared/api-contract.md](shared/api-contract.md), интерактивная документация — `/docs`. Для локальной меры передаётся `{measureId: "M7", districtId: "nura"}`; для общегородской меры `districtId` не указывается.
+Request and error formats are documented in [shared/api-contract.md](shared/api-contract.md); interactive documentation is available at `/docs`. A local measure uses `{measureId: "M7", districtId: "nura"}`; omit `districtId` for a city-wide measure.
 
-`/api/health` не выполняет тестовый платный AI-запрос. `aiConfigured: true` означает создание провайдера, а не проверенную авторизацию у внешнего сервиса.
+`/api/health` does not make a paid AI test request. `aiConfigured: true` means the provider was created, not that authentication with the external service was verified.
 
-## Развёртывание для внешнего доступа
+## Deployment for external access
 
-Готового публичного адреса нет. Для демонстрации на своём компьютере достаточно быстрого запуска. Для публичного сервера:
+No ready-to-use public URL is provided. Quick start is sufficient for a demonstration on your own computer. For a public server:
 
-1. Перенесите папку без `.venv`, `node_modules`, `.next` и локальных секретов на сервер с Python 3.12 и Node.js 22.20+.
-2. Установите зависимости командами ручного запуска. Задайте на backend `OPENAI_API_KEY`, `OPENAI_MODEL`, `CORS_ORIGINS`, например `CORS_ORIGINS=https://akim.example.org` без завершающего `/`.
-3. До сборки frontend задайте `NEXT_PUBLIC_API_MODE=live`, флаги `true`, `NEXT_PUBLIC_API_BASE_URL=https://api.akim.example.org`. Адреса — примеры; замените своими.
-4. В `frontend/` выполните `npm ci`, `npm run build`, `npm run start`. Backend запустите как в ручной инструкции. Поставьте перед сервисами reverse proxy с HTTPS и настройте автозапуск менеджером процессов ОС.
-5. Направьте сайт на loopback-порт 3000, API — на 8000. Таймаут proxy для AI — не короче 60 секунд. Для одного домена можно проксировать `/api/` на backend и собрать frontend с пустым `NEXT_PUBLIC_API_BASE_URL`.
-6. Ограничьте публичный доступ и частоту платных AI-запросов на proxy/шлюзе. В приложении нет авторизации и лимита запросов; CORS не защищает от прямых обращений.
-7. Из внешнего браузера проверьте здоровье API, контрольный сценарий, CORS и AI. И сайт, и API должны использовать HTTPS.
+1. Copy the project without `.venv`, `node_modules`, `.next`, or local secrets to a server with Python 3.12 and Node.js 22.20+.
+2. Install dependencies using the manual startup commands. Set backend `OPENAI_API_KEY`, `OPENAI_MODEL`, and `CORS_ORIGINS`, for example `CORS_ORIGINS=https://akim.example.org` without a trailing `/`.
+3. Before building the frontend, set `NEXT_PUBLIC_API_MODE=live`, both feature flags to `true`, and `NEXT_PUBLIC_API_BASE_URL=https://api.akim.example.org`. Replace these example addresses with your own.
+4. In `frontend/`, run `npm ci`, `npm run build`, and `npm run start`. Start the backend as described in the manual instructions. Place an HTTPS reverse proxy in front of the services and configure automatic startup through your OS process manager.
+5. Route website traffic to loopback port 3000 and API traffic to port 8000. Set the AI proxy timeout to at least 60 seconds. For a single domain, proxy `/api/` to the backend and build the frontend with an empty `NEXT_PUBLIC_API_BASE_URL`.
+6. Restrict public access and paid AI request frequency at the proxy or gateway. The application has no authentication or rate limiting; CORS does not protect against direct requests.
+7. From an external browser, verify API health, the reference scenario, CORS, and AI. Both the website and API must use HTTPS.
 
-Домен, сертификат и хостинг не входят в комплект. В этом README не заявляется проверенная публичная публикация приложения.
+A domain, certificate, and hosting are not included. This README does not claim a verified public deployment.
 
-## Как проверить решение — сценарий для жюри
+## Verification: a demo for judges
 
-1. Запустите сервисы, откройте симулятор и загрузите контрольный пример.
-2. Проверьте решения: **M7/Нура, M8/Нура, M10/Нура, M12/весь город, M5/Сарыарка**. Бюджет **95**, остаток **5**.
-3. Финализируйте: исходный Score **52.55768**, итог **56.54307**, изменение **+3.98539**. Интерфейс округляет отображение; точность API выше.
-4. Проверьте показатели районов и AI-разбор. Без ключа должно быть сообщение о недоступности AI при сохранённых числах.
-5. Сохраните план. Найдите улучшение одной заменой: **M5/Сарыарка → M3/Нура**, бюджет **100**, Score **57.20556**, прирост **+0.66249**. Сарыарка при этом теряет **1.2125** балла — компромисс виден в сравнении.
-6. Примените замену, повторно финализируйте и сохраните второй план. На странице сравнения выберите оба. С настроенным AI нажмите «Объяснить различия с AI».
-7. На странице результата сформируйте краткий отчёт и скачайте Markdown. Кнопка JSON выгружает расчёт без AI.
-8. Очистите план и запросите совет. Примените одно предложение; сервер повторно проверит добавление.
-9. Попробуйте несовместимые M1 + M3. Сервер должен отклонить набор. Нельзя финализировать меньше пяти мер, повторять меру или превышать бюджет.
+1. Start the services, open the simulator, and load the reference scenario.
+2. Check the decisions: **M7/Nura, M8/Nura, M10/Nura, M12/city-wide, M5/Saryarka**. Cost: **95**; remaining budget: **5**.
+3. Finalize the plan: baseline score **52.55768**, final score **56.54307**, change **+3.98539**. The UI rounds displayed values; the API provides higher precision.
+4. Inspect district indicators and AI analysis. Without a key, an AI-unavailable message should appear while numerical results remain visible.
+5. Save the plan. Find the single-replacement improvement: **M5/Saryarka → M3/Nura**, cost **100**, score **57.20556**, gain **+0.66249**. Saryarka loses **1.2125** points, making the trade-off visible in the comparison.
+6. Apply the replacement, finalize again, and save the second plan. Select both on the comparison page. With AI configured, use the button for explaining differences with AI.
+7. Generate the executive brief on the results page and download Markdown. The JSON button exports the calculation without AI.
+8. Clear the plan and request advice. Apply one suggestion; the server validates the addition again.
+9. Try the incompatible M1 + M3 combination. The server should reject it. A plan cannot be finalized with fewer than five measures, duplicate measures, or an exceeded budget.
 
-HTTP-проверка из корня, PowerShell:
+HTTP verification from the repository root in PowerShell:
 
 ```powershell
 $plan = Get-Content shared/example-scenario.json -Raw
 Invoke-RestMethod http://127.0.0.1:8000/api/scenario/finalize -Method Post -ContentType 'application/json' -Body $plan
 ```
 
-### Автоматические проверки
+### Automated checks
 
-CI включает pytest с покрытием, Ruff (lint/format), проверки контрактов, Vitest, TypeScript, ESLint, production-сборку frontend и проверку актуальности fixtures/OpenAPI. Workflow запускается при изменениях backend, frontend, shared или самого workflow; изменение только корневого README не запускает этот набор.
+CI includes pytest with coverage, Ruff lint/format checks, contract checks, Vitest, TypeScript, ESLint, a frontend production build, and checks for up-to-date fixtures/OpenAPI. The workflow runs for changes to the backend, frontend, shared files, or the workflow itself; a root README-only change does not trigger this suite.
 
-Для повторения проверок локально, из корня, PowerShell:
+To repeat the checks locally, run from the repository root in PowerShell:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r backend/requirements-dev.txt
@@ -286,42 +287,43 @@ npm.cmd run build
 Pop-Location
 ```
 
-Один pytest-тест обмена payload между Node и Python по умолчанию пропускается. Чтобы включить его, до проверки контракта и pytest задайте:
+One pytest test for payload exchange between Node and Python is skipped by default. To enable it, set this before the contract check and pytest:
 `$env:AKIM_FRONTEND_REQUEST = Join-Path $env:TEMP 'akim-frontend-request.json'`.
-Не включайте `NEXT_PUBLIC_API_MODE=live` через переменные оболочки при unit-тестах: часть тестов намеренно проверяет деморежим; `.env.local` Vitest не подгружает.
+Do not set `NEXT_PUBLIC_API_MODE=live` through shell variables during unit tests: some tests intentionally exercise demo mode, and Vitest does not load `.env.local`.
 
-## Данные и интеграции
+## Data and integrations
 
-Источник — PDF организаторов «Датасет районов». В `shared/districts.json` перенесены десять индикаторов пяти районов и доли населения; в `shared/measures.json` — 14 мер, стоимость, эффекты и задержки; в `shared/model.json` — веса, ограничения, синергии и штрафы. Приложению исходные PDF не нужны.
+The source is the organizers' district dataset PDF. `shared/districts.json` contains ten indicators for five districts and population shares; `shared/measures.json` contains 14 measures, costs, effects, and delays; `shared/model.json` contains weights, constraints, synergies, and penalties. The application does not need the original PDFs at runtime.
 
-Горизонт — 8 кварталов, эффект учитывает `(8 − lag) / 8`. Эффекты и синергии суммируются до ограничения значений диапазоном 0–100. Итог: `0.7 × взвешенная оценка города + 0.3 × минимальная оценка района − число показателей ниже 40`.
-Внутренние расчёты используют точные дроби без промежуточного округления.
-Финальный план: ровно пять уникальных мер, максимум две одного направления, минимум три направления, стоимость до 100 включительно.
+The horizon is 8 quarters, with effects scaled by `(8 − lag) / 8`. Effects and synergies are added before values are clamped to 0–100. The final score is:
+`0.7 × population-weighted city score + 0.3 × minimum district score − number of indicators below 40`.
+Internal calculations use exact fractions without intermediate rounding.
+A finalized plan must contain exactly five unique measures, at most two in one category, at least three categories, and a total cost of no more than 100.
 
-Внешняя интеграция — OpenAI Responses API. Государственные API, онлайн-геоданные и реальные реестры не подключены. Схема районов иллюстративная.
+The external integration is the OpenAI Responses API. Government APIs, live geographic data, and real registries are not connected. The district map is illustrative.
 
-## Чем проект отличается
+## What makes the project useful
 
-- **Равенство районов:** слабейший район и критические индикаторы показаны вместе со средним результатом.
-- **Объяснимая замена:** поиск улучшения одного решения с показом выгод и потерь конкретных районов.
-- **Защита решения:** AI сравнивает два пересчитанных плана; отчёт объединяет факты и объяснение компромиссов.
+- **District equity:** the weakest district and critical indicators appear alongside the average result.
+- **Explainable replacements:** a single-decision improvement shows gains and losses for specific districts.
+- **Decision justification:** AI compares two recalculated plans, while the report combines facts with an explanation of trade-offs.
 
-## Ограничения
+## Limitations
 
-- Нет общего рейтинга команд, случайных событий, готового PPT/PDF-экспорта. В кратком ТЗ они опциональны; отчёт скачивается как Markdown.
-- Нет многопользовательской БД, синхронизации устройств, авторизации и ограничения частоты AI-запросов.
-- Поиск одной замены не доказывает глобальную оптимальность.
-- AI требует действующего ключа, доступной модели и интернета; текст может ошибаться. Числа и допустимость проверяет код.
-- Сервер ждёт AI до 45 секунд без автоматических повторов, UI — до 60 секунд; повтор запускается вручную.
-- `mock` — отдельный режим fixtures: произвольные планы не рассчитываются, текст примера отмечен как шаблон. Для полноценной проверки нужен `live`.
-- CI с тестовым AI-провайдером подтверждает интеграцию и контракты. Настоящий платный AI, Docker Compose и публичный хостинг требуют отдельной проверки.
+- No shared team leaderboard, random events, or ready-made PPT/PDF export. These are optional in the brief; reports download as Markdown.
+- No multi-user database, cross-device synchronization, authentication, or AI request rate limiting.
+- Single-replacement search does not prove global optimality.
+- AI requires a valid key, an available model, and internet access; its text may contain errors. Code checks numbers and plan validity.
+- The backend waits up to 45 seconds for AI without automatic retries; the UI waits up to 60 seconds. Retry manually.
+- `mock` is a separate fixture mode: it does not calculate arbitrary plans, and example text is labeled as a template. Use `live` for full verification.
+- CI with a test AI provider verifies integration and contracts. Real paid AI, Docker Compose, and public hosting require separate checks.
 
-## Происхождение и разработка
+## Origin and development
 
-Проект команды **LODZ POLSKA** для HackAlem. [Исходный репозиторий команды](https://github.com/BAITC-Hacks/hack-921839cc-lodz-polska); текущая интегрированная версия размещена в [NuraliKuzhagaliev/akim-ai-lodz](https://github.com/NuraliKuzhagaliev/akim-ai-lodz).
+Built by **LODZ POLSKA** for HackAlem. [Original team repository](https://github.com/BAITC-Hacks/hack-921839cc-lodz-polska); the current integrated version is hosted at [NuraliKuzhagaliev/akim-ai-lodz](https://github.com/NuraliKuzhagaliev/akim-ai-lodz).
 
-Правила владения модулями и работы через feature-ветки описаны в [AGENTS.md](AGENTS.md). [docs/LOCAL-CHANGES.md](docs/LOCAL-CHANGES.md) и другие интеграционные заметки отражают историю подготовки сборки; актуальные команды запуска приведены выше.
+Module ownership and feature-branch rules are documented in [AGENTS.md](AGENTS.md). [docs/LOCAL-CHANGES.md](docs/LOCAL-CHANGES.md) and other integration notes describe the history of preparing the build; current startup commands are provided above. Linked supporting documents may remain in Russian.
 
-## Лицензия
+## License
 
-Файл `LICENSE` в текущем репозитории отсутствует. Условия повторного использования исходников явно не определены.
+There is no `LICENSE` file in the current repository. Source reuse terms are not explicitly defined.
