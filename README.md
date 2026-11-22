@@ -50,13 +50,13 @@ If AI is unavailable, calculations and plan management remain available, and the
 | Frontend | Next.js 16.3.6, React 19.3.0, TypeScript 6.0.3, Tailwind CSS 4.3.3 |
 | UI | Radix UI, Recharts, Lucide, Zod |
 | Backend | Python 3.12, FastAPI, Pydantic, Uvicorn, python-dotenv |
-| AI | OpenAI Python SDK, Responses API, structured responses using Pydantic schemas |
+| AI | Gemini API with structured JSON and Pydantic validation. OpenAI Responses API is available as an opt-in provider. |
 | Data | JSON catalog, deterministic Python engine, localStorage |
 | Checks | pytest, Hypothesis, Ruff, Vitest, ESLint, TypeScript |
 | Startup | Python launcher, npm, Dockerfiles for both services, Docker Compose |
 
 Versions are pinned in `frontend/package-lock.json` and `backend/requirements*.txt`.
-The server-side `OPENAI_MODEL` variable selects the model; the code defaults to `gpt-6-astra`. Use a model available to your API project that supports structured Responses API output. External API access and billing are not included with this project.
+The backend uses Gemini 3.1 Flash-Lite by default. Google offers a [free tier](https://ai.google.dev/gemini-api/docs/pricing#gemini-3.1-flash-lite) with usage limits. Use a free-tier Google project to avoid usage charges.
 
 ## Architecture
 
@@ -80,7 +80,7 @@ flowchart TD
 | `frontend/` | Pages, components, API client, charts, and tests |
 | `backend/app/simulation/` | Catalog, rules, exact calculations, and single-replacement search |
 | `backend/app/api/` | HTTP routes and adapters for trusted AI requests |
-| `backend/app/ai/` | Prompts, schemas, and the OpenAI provider |
+| `backend/app/ai/` | Prompts, response schemas, and model providers |
 | `backend/app/report/` | Reports built from facts and AI conclusions |
 | `backend/tests/` | Calculation, API, and integration checks |
 | `shared/` | Data, reference scenario, fixtures, contract, and OpenAPI |
@@ -135,17 +135,18 @@ Use `--install` after changing dependencies.
 
 ### Configure live AI
 
-After the first run, open **backend/.env** in a text editor. Before the first run, you can create it by copying `backend/.env.example`:
+Create a key in [Google AI Studio](https://aistudio.google.com/apikey) for a free-tier project. Add the following settings to **backend/.env**. If the file does not exist, copy `backend/.env.example` first.
 
 ```dotenv
-OPENAI_API_KEY=your_server_side_key
-OPENAI_MODEL=a_model_available_to_your_api_project
+AI_PROVIDER=gemini
+GEMINI_API_KEY=your_google_ai_studio_key
+GEMINI_MODEL=gemini-3.1-flash-lite
 ```
 
-Restart the application. `GET /api/health` reports `aiConfigured: true` when the provider has been created. This confirms that configuration was loaded, not that external API authentication succeeded. Run an AI analysis in the interface to check actual access.
+Restart the application. `GET /api/health` reports `aiConfigured: true` when provider configuration loads. Run an AI analysis in the interface to verify actual access.
 
 **Store the key only on the backend.** Do not put it in `frontend/.env.local`, `NEXT_PUBLIC_*` variables, a submission archive, or GitHub.
-Without a key, simulation, finalization, replacement search, saving, JSON export, and numerical comparison remain available. AI advice, AI comparison, and AI reports return a clear 503 error.
+Without a key, simulation, finalization, replacement search, saving, JSON export, and numerical comparison remain available. The AI routes return a 503 error.
 
 ### Manual startup: two terminals
 
@@ -202,8 +203,10 @@ Dockerfiles and Compose configuration are included. CI checks Python/Node.js but
 
 | Variable | Used by | Purpose |
 | --- | --- | --- |
-| `OPENAI_API_KEY` | Backend | Server-side key; numerical calculations work without it |
-| `OPENAI_MODEL` | Backend | Structured-output model; the code defaults to `gpt-6-astra` |
+| `AI_PROVIDER` | Backend | Defaults to `gemini`. Set `openai` explicitly to use OpenAI. |
+| `GEMINI_API_KEY` | Backend | Google AI Studio key. Numerical calculations work without it. |
+| `GEMINI_MODEL` | Backend | Gemini model ID. Defaults to `gemini-3.1-flash-lite`. |
+| `OPENAI_API_KEY`, `OPENAI_MODEL` | Backend | OpenAI key and structured-output model, used only with `AI_PROVIDER=openai`. |
 | `CORS_ORIGINS` | Backend | Comma-separated allowed origins; defaults to localhost and 127.0.0.1 on port 3000 |
 | `NEXT_PUBLIC_API_MODE` | Frontend | `live` for the real engine; `mock` for explicitly labeled fixtures |
 | `NEXT_PUBLIC_API_BASE_URL` | Frontend | API origin without `/api`; an empty string uses the same origin |
@@ -231,18 +234,18 @@ A model name in configuration does not guarantee access. Choose a model actually
 
 Request and error formats are documented in [shared/api-contract.md](shared/api-contract.md); interactive documentation is available at `/docs`. A local measure uses `{measureId: "M7", districtId: "nura"}`; omit `districtId` for a city-wide measure.
 
-`/api/health` does not make a paid AI test request. `aiConfigured: true` means the provider was created, not that authentication with the external service was verified.
+`/api/health` reports local configuration. Test an AI feature to verify that the external service accepts requests.
 
 ## Deployment for external access
 
 Open the hosted web application at [akim-ai-lodz.vercel.app](https://akim-ai-lodz.vercel.app/). Quick start is sufficient for a demonstration on your own computer. To deploy your own instance:
 
 1. Copy the project without `.venv`, `node_modules`, `.next`, or local secrets to a server with Python 3.12 and Node.js 22.20+.
-2. Install dependencies using the manual startup commands. Set backend `OPENAI_API_KEY`, `OPENAI_MODEL`, and `CORS_ORIGINS`, for example `CORS_ORIGINS=https://akim.example.org` without a trailing `/`.
+2. Install dependencies using the manual startup commands. Set `AI_PROVIDER=gemini`, `GEMINI_API_KEY`, and `CORS_ORIGINS` on the backend. On Render, set them in the backend service’s **Environment** page and redeploy the backend. For CORS, enter the frontend origin without a trailing `/`.
 3. Before building the frontend, set `NEXT_PUBLIC_API_MODE=live`, both feature flags to `true`, and `NEXT_PUBLIC_API_BASE_URL=https://api.akim.example.org`. Replace these example addresses with your own.
 4. In `frontend/`, run `npm ci`, `npm run build`, and `npm run start`. Start the backend as described in the manual instructions. Place an HTTPS reverse proxy in front of the services and configure automatic startup through your OS process manager.
 5. Route website traffic to loopback port 3000 and API traffic to port 8000. Set the AI proxy timeout to at least 60 seconds. For a single domain, proxy `/api/` to the backend and build the frontend with an empty `NEXT_PUBLIC_API_BASE_URL`.
-6. Restrict public access and paid AI request frequency at the proxy or gateway. The application has no authentication or rate limiting; CORS does not protect against direct requests.
+6. Limit public AI request frequency at the API proxy or gateway to protect the provider quota. CORS only controls browser access.
 7. From an external browser, verify API health, the reference scenario, CORS, and AI. Both the website and API must use HTTPS.
 
 For your own deployment, configure hosting, a domain, and HTTPS separately.
@@ -302,7 +305,7 @@ The horizon is 8 quarters, with effects scaled by `(8 − lag) / 8`. Effects and
 Internal calculations use exact fractions without intermediate rounding.
 A finalized plan must contain exactly five unique measures, at most two in one category, at least three categories, and a total cost of no more than 100.
 
-The external integration is the OpenAI Responses API. Government APIs, live geographic data, and real registries are not connected. The district map is illustrative.
+The backend sends computed simulation facts and any optional question to the configured model provider. The Gemini free tier is subject to [Google's data terms](https://ai.google.dev/gemini-api/terms). The district map is illustrative.
 
 ## What makes the project useful
 
@@ -318,7 +321,7 @@ The external integration is the OpenAI Responses API. Government APIs, live geog
 - AI requires a valid key, an available model, and internet access; its text may contain errors. Code checks numbers and plan validity.
 - The backend waits up to 45 seconds for AI without automatic retries; the UI waits up to 60 seconds. Retry manually.
 - `mock` is a separate fixture mode: it does not calculate arbitrary plans, and example text is labeled as a template. Use `live` for full verification.
-- CI with a test AI provider verifies integration and contracts. Real paid AI, Docker Compose, and public hosting require separate checks.
+- Automated tests verify the integration using test responses. Live model access, Docker Compose, and public hosting require separate checks.
 
 ## Origin and development
 

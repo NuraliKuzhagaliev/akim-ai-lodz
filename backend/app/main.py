@@ -20,9 +20,17 @@ logger = logging.getLogger(__name__)
 
 def configured_generator(*, advice: bool = False) -> Generator | None:
     load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
-    if not os.getenv("OPENAI_API_KEY"):
-        return None
+    selected_provider = os.getenv("AI_PROVIDER", "gemini").strip().lower()
     try:
+        if selected_provider == "gemini":
+            api_key = os.getenv("GEMINI_API_KEY", "").strip()
+            if not api_key:
+                return None
+            provider = importlib.import_module("app.ai.gemini_provider")
+            model = os.getenv("GEMINI_MODEL", provider.DEFAULT_MODEL).strip()
+            return provider.create_gemini_generator(api_key, advice=advice, model=model)
+        if selected_provider != "openai" or not os.getenv("OPENAI_API_KEY"):
+            return None
         provider = importlib.import_module("app.ai.openai_provider")
         sdk = importlib.import_module("openai")
         # AI can legitimately need more than 15s, especially on the first schema request.

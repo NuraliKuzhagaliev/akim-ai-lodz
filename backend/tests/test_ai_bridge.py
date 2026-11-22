@@ -126,6 +126,7 @@ def test_real_sdk_timeout_has_one_attempt_and_preserves_calculations(
         raise httpx.ReadTimeout("private-provider-detail", request=request)
 
     sdk_client = sdk.OpenAI
+    monkeypatch.setenv("AI_PROVIDER", "openai")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key-never-sent")
     monkeypatch.setattr("app.main.load_dotenv", lambda *_args, **_kwargs: None)
     with httpx.Client(transport=httpx.MockTransport(timeout)) as transport:
