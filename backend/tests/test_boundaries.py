@@ -26,12 +26,15 @@ def test_remaining_budget_does_not_add_score(catalog, example):
 
 
 def test_provider_configuration_without_key(monkeypatch):
-    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.delenv("AI_PROVIDER", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key-never-sent")
     monkeypatch.setattr("app.main.load_dotenv", lambda *_args, **_kwargs: None)
     assert configured_generator() is None
 
 
 def test_provider_configuration_and_bounded_timeout(monkeypatch):
+    monkeypatch.setenv("AI_PROVIDER", "openai")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key-never-sent")
     monkeypatch.setattr("app.main.load_dotenv", lambda *_args, **_kwargs: None)
     captured = {}
@@ -56,6 +59,7 @@ def test_provider_configuration_and_bounded_timeout(monkeypatch):
 
 
 def test_provider_configuration_failure_keeps_backend_running(monkeypatch, caplog):
+    monkeypatch.setenv("AI_PROVIDER", "openai")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key-never-sent")
     monkeypatch.setattr("app.main.load_dotenv", lambda *_args, **_kwargs: None)
 

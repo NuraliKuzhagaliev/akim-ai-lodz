@@ -30,9 +30,9 @@ The executive brief is a structured JSON response with a Markdown body for previ
 
 ## Provider configuration
 
-The OpenAI provider reads `backend/.env` when configured; process environment variables take precedence. Keep the API key only in local `backend/.env`, which must remain untracked. Never place keys in source code, `.env.example`, fixtures, or commit history.
+The application reads `backend/.env` at startup. Process environment variables take precedence. The default provider is Gemini. Set `GEMINI_API_KEY` to a Google AI Studio key. `GEMINI_MODEL` defaults to `gemini-3.1-flash-lite`. Keep the key in the backend environment or the untracked local `backend/.env`.
 
-`OPENAI_MODEL` is optional and defaults to `gpt-6-astra`. Install AI dependencies from the backend directory with `python -m pip install -r requirements-ai.txt`.
+To use OpenAI, explicitly set `AI_PROVIDER=openai`, `OPENAI_API_KEY`, and optionally `OPENAI_MODEL` (defaults to `gpt-6-astra`). Install AI dependencies from the backend directory with `python -m pip install -r requirements-ai.txt`.
 
 ## Examples and checks
 
